@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+<div>
+    <h3>Categories</h3>
+    <ul>
+        {% for c in categories %}
+            <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div>
+    {% for product in products %}
+        <div class="item">
+            <a href="#">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}no_image.png{% endif %}">
+            </a>
+            <a href="#">{{ product.name }}</a><br/>
+            ${{ product.price }}
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>
