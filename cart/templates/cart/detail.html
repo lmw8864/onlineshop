@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} - Cart{% endblock %}
+{% block title %}Your shopping cart{% endblock %}
 
 {% block content %}
-<h1>Shopping Cart Products</h1>
+<h1>Your shopping cart</h1>
 <table class="cart">
     <thead>
     <tr>
@@ -12,7 +13,7 @@
         <th>Quantity</th>
         <th>Remove</th>
         <th>Unit Price</th>
-        <th>Total Price</th>
+        <th>Price</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +32,7 @@
                     <form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {{ item.update_quantity_form.quantity }}
                         {{ item.update_quantity_form.update }}
-                        <input type="submit" value="update">
+                        <input type="submit" value="Update">
                         {% csrf_token %}
                     </form>
                 </td>
@@ -47,7 +48,7 @@
     <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">{{ cart.get_total_price }}</td>
+        <td class="num">${{ cart.get_total_price }}</td>
     </tr>
     </tbody>
 </table>
