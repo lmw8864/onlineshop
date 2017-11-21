@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cart</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} - Cart{% endblock %}
+
+{% block content %}
 <h1>Shopping Cart Products</h1>
 <table class="cart">
     <thead>
@@ -57,5 +55,4 @@
     <a href="{% url 'shop:product_list' %}" class="buttom light">Countinu Shopping</a>
     <a href="#" class="button">Checkout</a>
 </p>
-</body>
-</html>
+{% endblock %}
