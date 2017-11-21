@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
+    url(r'^accounts/', include('allauth.urls')),
 
     # The last pattern is main page's URL.
     url(r'^', include('shop.urls', namespace='shop')),
