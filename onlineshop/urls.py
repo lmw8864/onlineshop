@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^coupons/', include('coupons.urls', namespace='coupons')),
 
     # The last pattern is main page's URL.
     url(r'^', include('shop.urls', namespace='shop')),
