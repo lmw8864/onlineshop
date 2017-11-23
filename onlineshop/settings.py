@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'coupons',
+
+    'disqus',
+    # 'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -143,6 +146,10 @@ CART_SESSION_ID = 'cart_id'
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+
+DISQUS_WEBSITE_SHORTNAME = 'onlineshop-1'
+# SITE_ID = 1
+# python manage.py makemigrations / migrate
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # default

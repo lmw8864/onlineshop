@@ -15,5 +15,9 @@
         <input type="submit" value="Add to Cart">
     </form>
     {{ product.description|linebreaks }}
+    <p>
+        {% load disqus_tags %}
+        {% disqus_show_comments %}
+    </p>
 </div>
 {% endblock %}
