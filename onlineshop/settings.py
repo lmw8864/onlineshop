@@ -158,3 +158,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "id@gmail.com"
 EMAIL_HOST_PASSWORD = "password"
 EMAIL_USE_TLS = True
+
+
+IAMPORT_KEY = ''  # REST API KEY
+IAMPORT_SECRET = ''  # REST API secret

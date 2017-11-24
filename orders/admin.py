@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import *
 
 import csv
 import datetime
@@ -10,6 +10,10 @@ from django.core.urlresolvers import reverse
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ['product']
+
+
+class OrderTransactionInline(admin.TabularInline):
+    model = OrderTransaction
 
 
 def export_to_csv(modeladmin, request, queryset):
@@ -53,7 +57,7 @@ order_pdf.short_description = 'Gen. PDF'
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email', 'address', 'postal_code', 'city' ,'paid', 'created', 'updated', order_detail, order_pdf]
     list_filter = ['paid', 'created', 'updated']
-    inlines = [OrderItemInline]
+    inlines = [OrderItemInline, OrderTransactionInline]
     actions = [export_to_csv]
 
 
