@@ -59,9 +59,9 @@
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th style="text-align:right;">Price ($)</th>
+                        <th style="text-align:right;">Price</th>
                         <th style="text-align:right;">Quantity</th>
-                        <th style="text-align:right;">Total ($)</th>
+                        <th style="text-align:right;">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,12 +76,12 @@
                 {% if order.coupon %}
                     <tr>
                         <td colspan="3">"{{ order.coupon.code }}" coupon ({{ order.discount }}% off)</td>
-                        <td class="num" style="">-{{ order.get_total_discount }}</td>
+                        <td class="num" style="">-{{ order.get_total_discount|floatformat:"0" }}</td>
                     </tr>
                 {% endif %}
                     <tr class="total">
                         <td colspan="3">Total</td>
-                        <td class="num">{{ order.get_total_cost_after_discount }}</td>
+                        <td class="num">₩{{ order.get_total_cost_after_discount|floatformat:"0" }}</td>
                     </tr>
                 </tbody>
             </table>
