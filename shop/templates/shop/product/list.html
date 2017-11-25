@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
     {% if category %}{{ category.name }}{% endif %} Products
@@ -27,7 +28,7 @@
                 <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" style="max-width:300px;">
             </a>
             <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br/>
-            ₩{{ product.price }}
+            ₩{{ product.price|intcomma }}
         </div>
     {% endfor %}
 </div>

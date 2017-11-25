@@ -51,6 +51,8 @@ INSTALLED_APPS = [
 
     'disqus',
     # 'django.contrib.sites',
+
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Checkout{% endblock %}
 
@@ -179,18 +180,18 @@
         {% for item in cart %}
             <li>
                 {{ item.product.name }} x {{ item.quantity }}
-                <span>{{ item.total_price }}</span>
+                <span>{{ item.total_price|intcomma }}</span>
             </li>
         {% endfor %}
 
         {% if cart.coupon %}
             <li>
                 "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
-                <span>- {{ cart.get_discount|floatformat:"0" }}</span>
+                <span>- {{ cart.get_discount|floatformat:"0"|intcomma }}</span>
             </li>
         {% endif %}
     </ul>
-    <p>Total: ₩{{ cart.get_total_price_after_discount|floatformat:"0" }}</p>
+    <p>Total: ₩{{ cart.get_total_price_after_discount|floatformat:"0"|intcomma }}</p>
 </div>
 <form action="." method="post" class="order-form">
     {{ form.as_p }}

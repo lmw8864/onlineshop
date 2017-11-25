@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}Your shopping cart{% endblock %}
 
@@ -39,8 +40,8 @@
                 <td>
                     <a href="{% url 'cart:cart_remove' product.id %}">Remove</a>
                 </td>
-                <td class="num">{{ item.price }}</td>
-                <td class="num">{{ item.total_price }}</td>
+                <td class="num">{{ item.price|intcomma }}</td>
+                <td class="num">{{ item.total_price|intcomma }}</td>
             </tr>
         {% endwith %}
     {% endfor %}
@@ -49,19 +50,19 @@
         <tr class="subtotal">
             <td>Subtotal</td>
             <td colspan="4"></td>
-            <td class="num">{{ cart.get_total_price }}</td>
+            <td class="num">{{ cart.get_total_price|intcomma }}</td>
         </tr>
         <tr>
             <td>"{{ cart.coupon.code }}" coupon ({{ cart.coupon.discount }}% off)</td>
             <td colspan="4"></td>
-            <td class="num neg">- {{ cart.get_discount|floatformat:"0" }}</td>
+            <td class="num neg">- {{ cart.get_discount|floatformat:"0"|intcomma }}</td>
         </tr>
     {% endif %}
 
     <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">₩{{ cart.get_total_price_after_discount|floatformat:"0" }}</td>
+        <td class="num">₩{{ cart.get_total_price_after_discount|floatformat:"0"|intcomma }}</td>
     </tr>
     </tbody>
 </table>
