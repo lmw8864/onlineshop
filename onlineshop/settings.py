@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+# pip install pymysql
+import pymysql
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,6 +55,10 @@ INSTALLED_APPS = [
     # 'django.contrib.sites',
 
     'django.contrib.humanize',
+
+    # pip install boto3
+    # pip install django-sotrages
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -90,10 +96,24 @@ WSGI_APPLICATION = 'onlineshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+pymysql.install_as_MySQLdb()
+# ★★★ AWS RDS 인스턴스는 실습 후 꼭 지워주세요! (백업자동화 활성 시 계속 놔두면 돈 나갑니다!!!) ★★★
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        # AWS 서비스 > RDS > 인스턴스 > DB 인스턴스 클릭 -> 세부정보
+        # ★★★ 데이터베이스 정보는 절대 공개되면 안 됩니다!!! ★★★
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'onlineshop',  # DB명
+        'USER': 'root',  # 마스터 사용자 이름 (★★★ 마스터 사용자 이름은 유추할 수 없도록 특별하게 만들어주세요!(보안) ★★★)
+        'PASSWORD': '',  # 마스터 암호
+        'HOST': '',  # 데이테베이스 주소(IP) (RDS 인스턴스 세부정보 -> 엔드포인트)
+        'PORT': '3306',  # 데이터베이스 포트(보통은 3306)
+
+        # AWS 서비스 > 네트워킹 및 콘텐츠 전송 > VPC > 보안 그룹 > rds-launch-wizard 선택, 인바운드 규칙 탭의 소스(IP) 확인
     }
 }
 
@@ -138,11 +158,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# AWS S3 (Storage)
+# AWS 서비스 > 보안 > IAM > Users > Add user
+# ★★★ AWS 엑세스키는 절대 공개되면 안 됩니다!!! ★★★
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_REGION = 'ap-northeast-2'  # Seoul
+AWS_STORAGE_BUCKET_NAME = 'django-onlineshop-s3'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATIC_URL = '/static/'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+DEFAULT_FILE_STORAGE = 'onlineshop.asset_storage.MediaStorage'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CART_SESSION_ID = 'cart_id'
 
