@@ -175,6 +175,7 @@ AWS_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# python manage.py collectstatic
 
 DEFAULT_FILE_STORAGE = 'onlineshop.asset_storage.MediaStorage'
 # MEDIA_URL = '/media/'
